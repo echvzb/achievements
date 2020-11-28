@@ -1,4 +1,7 @@
 import data from './data.js';
+import introHero from './introHero.js';
+
+introHero();
 
 const navBar = document.querySelector('nav');
 const btnControllers = document.querySelectorAll('.btn');
