@@ -15,6 +15,7 @@ const changeElem = [
     [document.querySelector('.date'), fadeTextClass + 'date']
 ];
 
+const photoElem = changeElem[1][0];
 let currentIndex = 'p0';
 
 function toggleClassNames(arr) {
@@ -22,17 +23,16 @@ function toggleClassNames(arr) {
         subArr[0].classList.toggle(subArr[1]);
     })
 }
-function callClassNames(arrowBtn) {
-    let tempArr = arrowBtn ? [...changeElem, arrowBtn] : changeElem;
-    toggleClassNames(tempArr);
+function callClassNames(arr = changeElem) {
+    toggleClassNames(arr);
 
     setTimeout(() => {
-        toggleClassNames(tempArr);
+        toggleClassNames(arr);
     }, 800);
 }
-function setData(obj, indexes, arrowBtn) {
+function setData(obj, indexes, arrowBtnArr) {
     indexes.forEach(p => {
-        if (p == null) {
+        if (p === null) {
             return;
         };
         document.querySelector('#' + p).classList.toggle('active');
@@ -40,9 +40,48 @@ function setData(obj, indexes, arrowBtn) {
     for (let key in obj) {
         document.querySelector('.' + key).innerText = obj[key];
     }
-    document.querySelector('img').setAttribute('src', `img/${indexes[0].slice(1,indexes[0].length)}.jpg`);
-    callClassNames(arrowBtn);
+    if(arrowBtnArr) callClassNames([arrowBtnArr]);
+    photoElem.style.display = 'none'; 
+    photoElem.setAttribute('src', `img/${indexes[0].slice(1, indexes[0].length)}.jpg`);
 }
+
+function clickBtnAnim(btn) {
+    let arrow = btn.getAttribute('id');
+    let tempN = arrow === 'back' ? -1 : 1;
+    let tempI = +currentIndex.slice(1, currentIndex.length) + tempN;
+
+    if (tempI < 0 || tempI >= data.length) return;
+
+    btn.setAttribute('disable', 'true');
+
+    setData(data[tempI], ['p' + tempI, currentIndex], [btn, 'clicked']);
+
+    currentIndex = 'p' + tempI;
+    setTimeout(() => {
+        btn.setAttribute('disable', 'false');
+    }, 800);
+}
+function clickButtonArrow(e) {
+    clickBtnAnim(this);
+}
+
+btnControllers.forEach(btn => {
+    btn.addEventListener('click', clickButtonArrow);
+})
+
+photoElem.addEventListener('load', e => {
+    e.target.style.display = 'block';
+    callClassNames();
+})
+
+document.addEventListener('keydown', ({ code }) => {
+    if (code == 'KeyA' || code == 'ArrowLeft') {
+        clickBtnAnim(document.querySelector('#back'));
+    }
+    else if (code == 'KeyD' || code == 'ArrowRight') {
+        clickBtnAnim(document.querySelector('#front'));
+    }
+});
 
 for (let i = 0; i < data.length; i++) {
     let navPoint = document.createElement('button');
@@ -51,7 +90,7 @@ for (let i = 0; i < data.length; i++) {
 
     navPoint.addEventListener('click', e => {
         let idPointStr = e.target.getAttribute('id');
-        setData(data[+idPointStr.slice(1,idPointStr.length)], [idPointStr, currentIndex]);
+        setData(data[+idPointStr.slice(1, idPointStr.length)], [idPointStr, currentIndex]);
         currentIndex = idPointStr;
     })
 
@@ -59,35 +98,3 @@ for (let i = 0; i < data.length; i++) {
 }
 
 setData(data[0], [currentIndex, null]);
-
-function clickBtnAnim(btn) {
-
-    let arrow = btn.getAttribute('id');
-    let tempN = arrow == 'back' ? -1 : 1;
-    let tempI = +currentIndex.slice(1,currentIndex.length) + tempN; 
-
-    if(tempI < 0 || tempI >= data.length) return;
-
-    setData(data[tempI], ['p'+tempI,currentIndex], [btn, 'clicked']);
-
-    currentIndex = 'p'+tempI;
-    setTimeout(() => {
-        btn.setAttribute('disable', 'false');
-    }, 800);
-}
-function clickButtonArrow (e){
-    clickBtnAnim(this);
-}
-
-btnControllers.forEach(btn => {
-    btn.addEventListener('click', clickButtonArrow);
-})
-
-document.addEventListener('keydown', ({code}) => {
-    if(code == 'KeyA' || code  == 'ArrowLeft'){
-        clickBtnAnim(document.querySelector('#back'));
-    }
-    else if(code == 'KeyD' || code == 'ArrowRight'){
-        clickBtnAnim(document.querySelector('#front'));
-    }
-});
