@@ -18,23 +18,26 @@ const changeElem = [
 const photoElem = changeElem[1][0];
 let currentIndex = 'p0';
 
-function toggleClassNames(arr) {
-    arr.forEach(subArr => {
+function toggleClassNames(arr, out) {
+    arr.forEach((subArr, i) => {
+        if(!out && i===6) return;
         subArr[0].classList.toggle(subArr[1]);
     })
+    if(arr.length === 7 && out) changeElem.pop();
 }
 function callClassNames(arr = changeElem) {
     toggleClassNames(arr);
-
+    if(arr.length === 1){
+        changeElem.push(...arr);
+        return;
+    }
     setTimeout(() => {
-        toggleClassNames(arr);
+        toggleClassNames(arr, true);
     }, 800);
 }
 function setData(obj, indexes, arrowBtnArr) {
     indexes.forEach(p => {
-        if (p === null) {
-            return;
-        };
+        if (p === null) return;
         document.querySelector('#' + p).classList.toggle('active');
     });
     for (let key in obj) {
