@@ -18,21 +18,15 @@ const changeElem = [
 const photoElem = changeElem[1][0];
 let currentIndex = 'p0';
 
-function toggleClassNames(arr, out) {
-    arr.forEach((subArr, i) => {
-        if(!out && i===6) return;
+function toggleClassNames(arr) {
+    arr.forEach(subArr => {
         subArr[0].classList.toggle(subArr[1]);
     })
-    if(arr.length === 7 && out) changeElem.pop();
 }
 function callClassNames(arr = changeElem) {
     toggleClassNames(arr);
-    if(arr.length === 1){
-        changeElem.push(...arr);
-        return;
-    }
     setTimeout(() => {
-        toggleClassNames(arr, true);
+        toggleClassNames(arr);
     }, 800);
 }
 function setData(obj, indexes, arrowBtnArr) {
@@ -44,7 +38,7 @@ function setData(obj, indexes, arrowBtnArr) {
         document.querySelector('.' + key).innerText = obj[key];
     }
     if(arrowBtnArr) callClassNames([arrowBtnArr]);
-    photoElem.style.display = 'none'; 
+    photoElem.style.transform = 'scale(0)'; 
     photoElem.setAttribute('src', `img/${indexes[0].slice(1, indexes[0].length)}.jpg`);
 }
 
@@ -73,7 +67,7 @@ btnControllers.forEach(btn => {
 })
 
 photoElem.addEventListener('load', e => {
-    e.target.style.display = 'block';
+    photoElem.style.transform = 'scale(1)'; 
     callClassNames();
 })
 
