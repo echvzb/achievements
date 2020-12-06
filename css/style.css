@@ -1,12 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed&family=IBM+Plex+Sans:wght@700&family=IBM+Plex+Serif&display=swap");
-@keyframes enter-img-container-anim {
-    from {
-        transform: scale(0.75);
-    }
-    to {
-        transform: scale(1);
-    }
-}
 @keyframes enter-img {
     0% {
         transform: scale(0);
@@ -95,10 +87,6 @@ main {
 }
 .enter-info {
     border-radius: 150px 25px 150px 25px !important;
-}
-.enter-img-container {
-    animation-name: enter-img-container-anim;
-    animation-duration: 400ms;
 }
 .enter-img {
     animation-name: enter-img;
