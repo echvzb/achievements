@@ -16,7 +16,6 @@
     <meta property="og:image" content="https://eduardochvzb.github.io/achievements/img/1.jpg" />
     <meta property="og:description"
         content="This gallery collects all the photos with special moments of my life. They are remainders of where I come from and where I must go." />
-
     <meta name="theme-color" content="#151965" />
     <link rel="apple-touch-icon" sizes="57x57" href="img/icons/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="60x60" href="img/icons/apple-icon-60x60.png" />
@@ -44,20 +43,20 @@
     </nav>
     <main>
         <div class="img-group">
-            <button class="btn" id="back">
+            <button class="btn disable" id="back" data-cssanim="clicked">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <div class="img-container">
-                <img src="" alt="">
+            <div class="img-container changeElem" data-cssanim="enter-img-container">
+                <img class="changeElem" data-cssanim="enter-img" src="" alt="">
             </div>
-            <button class="btn" id="front">
+            <button class="btn" id="front" data-cssanim="clicked">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
-        <div class="info">
-            <div class="title"></div>
-            <div class="date"></div>
-            <div class="description"></div>
+        <div class="info changeElem" data-cssanim="enter-info">
+            <div class="title changeElem" data-cssanim="fade-text-title"></div>
+            <div class="date changeElem" data-cssanim="fade-text-date"></div>
+            <div class="description changeElem" data-cssanim="fade-text-description"></div>
         </div>
     </main>
     <script type="module" src="js/index.js"></script>

@@ -10,11 +10,11 @@
 @keyframes enter-img {
     0% {
         transform: scale(0);
-        opacity: 0.1;
+        opacity: 0;
     }
     50% {
-        transform: scale(0.75);
-        opacity: 0.2;
+        transform: scale(0.6);
+        opacity: 0.1;
     }
     75% {
         transform: scale(1);
@@ -81,7 +81,7 @@ main {
 }
 .fade-text-title,
 .fade-text-date,
-.fade-text-description {
+.fade-text-description{
     animation-duration: 800ms;
 }
 .fade-text-title {
@@ -105,14 +105,13 @@ main {
     animation-duration: 800ms;
 }
 .clicked {
+    transition: 300ms;
+    transform: scale(0.7);
     background: #46b5d1 !important;
     box-shadow: inset 5px 5px 10px #368ba1, inset -5px -5px 10px #56dfff !important;
 }
 .clicked .fas {
     color: #151965 !important;
-}
-.disable {
-    cursor: none;
 }
 .img-group {
     display: flex;
@@ -124,15 +123,19 @@ main {
     height: 1rem;
 }
 img {
-    transition: 300ms;
+    transition: 500ms;
     max-height: 100%;
 }
 .btn {
+    transition: 300ms;
     width: 3rem;
     height: 3rem;
     background: #151965;
     box-shadow: 8px 8px 16px #080a28, -8px -8px 16px #2228a2;
     z-index: 2;
+}
+.btn.disable{
+    opacity: 0 !important;
 }
 .fas {
     color: #46b5d1;
